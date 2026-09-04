@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>З днем народження, Настю!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky1:#ffe9d6;
+    --sky2:#ffd3b0;
+    --grass:#a8d977;
+    --grass-d:#8fc65f;
+    --korgi:#e8a25c;
+    --korgi-d:#d4863f;
+    --cream:#fff4e6;
+    --ink:#5a4632;
+    --pink:#ff8fab;
+    --brown:#7a4a2b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden}
+  body{
+    font-family:'Nunito',sans-serif;
+    background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 60%,#ffdfc4 100%);
+    min-height:100svh;
+    position:relative;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important}}
+
+  .scene{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:8svh}
+
+  /* sun */
+  .sun{
+    position:absolute;top:6%;right:12%;width:80px;height:80px;border-radius:50%;
+    background:radial-gradient(circle,#fff2b0,#ffd45e);
+    box-shadow:0 0 50px rgba(255,212,94,.7);
+    animation:sunPulse 4s ease-in-out infinite;
+  }
+  @keyframes sunPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+  /* clouds */
+  .cloud{position:absolute;background:#fff;border-radius:50px;opacity:.85}
+  .cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+  .c1{width:90px;height:26px;top:14%;left:-100px;animation:drift 26s linear infinite}
+  .c1::before{width:40px;height:40px;top:-16px;left:14px}
+  .c1::after{width:30px;height:30px;top:-10px;left:44px}
+  .c2{width:70px;height:20px;top:22%;left:-120px;animation:drift 34s linear infinite 4s}
+  .c2::before{width:30px;height:30px;top:-12px;left:12px}
+  .c2::after{width:24px;height:24px;top:-8px;left:36px}
+  @keyframes drift{from{transform:translateX(0)}to{transform:translateX(calc(100vw + 200px))}}
+
+  /* greeting text */
+  .greet{text-align:center;z-index:5;padding:0 22px;max-width:560px}
+  .hi{
+    font-family:'Baloo 2',cursive;font-weight:800;
+    font-size:clamp(2.1rem,9vw,3.6rem);color:var(--brown);line-height:1.05;
+    text-shadow:0 3px 0 #fff,0 4px 12px rgba(122,74,43,.2);
+    opacity:0;transform:translateY(-16px) scale(.9);
+    animation:dropIn .8s cubic-bezier(.2,1.4,.4,1) .3s forwards;
+  }
+  .name{color:var(--pink);display:block;font-size:clamp(2.6rem,12vw,4.6rem)}
+  .msg{
+    margin-top:16px;font-family:'Nunito',sans-serif;font-weight:700;
+    font-size:clamp(1rem,4.3vw,1.25rem);color:var(--ink);line-height:1.5;
+    opacity:0;animation:fadeIn 1s ease 1.3s forwards;
+  }
+  .msg .line2{display:block;margin-top:8px;font-weight:600;color:#7a6450}
+  @keyframes dropIn{to{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes fadeIn{to{opacity:1}}
+
+  /* ground */
+  .ground{position:absolute;bottom:0;left:0;width:100%;height:32svh;background:linear-gradient(180deg,var(--grass),var(--grass-d));border-radius:50% 50% 0 0/16% 16% 0 0}
+
+  /* corgi row - they peek up from behind the ground.
+     .korgi = outer, does the peek (opacity + slide up), anchored just above ground line.
+     .inner = does the gentle bob (separate element so it never fights peek). */
+  .pack{position:absolute;left:0;bottom:0;width:100%;height:30svh;z-index:4;pointer-events:none}
+  .korgi{
+    position:absolute;bottom:20svh;width:120px;height:auto;
+    opacity:0;transform:translateY(70px);
+    animation:peek .9s cubic-bezier(.2,1.4,.4,1) forwards;
+  }
+  .korgi .inner{display:block;transform-origin:bottom center}
+  .k1{left:4%}
+  .k2{left:24%;width:140px}
+  .k3{left:45%;width:132px}
+  .k4{left:65%;width:136px}
+  .k5{left:83%;width:116px}
+  @media(max-width:520px){
+    .korgi{bottom:19svh;width:82px}.k1{left:2%}.k2{left:22%;width:94px}.k3{left:43%;width:90px}.k4{left:63%;width:92px}.k5{left:82%;width:80px}
+  }
+  @keyframes peek{to{opacity:1;transform:translateY(0)}}
+  .bob .inner{animation:bob 2.4s ease-in-out infinite}
+  .bob2 .inner{animation:bob 2.4s ease-in-out infinite .6s}
+  .bob3 .inner{animation:bob 2.4s ease-in-out infinite 1.1s}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+  /* wagging tail via transform on group */
+  .tail{transform-origin:left center;animation:wag .35s ease-in-out infinite}
+  @keyframes wag{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(16deg)}}
+
+  /* bark bubbles */
+  .bark{
+    position:absolute;font-family:'Baloo 2',cursive;font-weight:800;
+    background:#fff;color:var(--pink);padding:5px 12px;border-radius:16px;
+    font-size:1rem;box-shadow:0 4px 10px rgba(122,74,43,.2);
+    opacity:0;white-space:nowrap;z-index:6;
+  }
+  .bark::after{content:"";position:absolute;bottom:-7px;left:16px;border:7px solid transparent;border-top-color:#fff;border-bottom:0}
+  .bark.go{animation:barkPop 2.2s ease-out infinite}
+  @keyframes barkPop{0%{opacity:0;transform:translateY(6px) scale(.7)}12%{opacity:1;transform:translateY(0) scale(1)}30%{transform:translateY(0) scale(1)}45%{opacity:1}60%{opacity:0;transform:translateY(-6px) scale(.9)}100%{opacity:0}}
+
+  /* balloons */
+  .balloon{position:absolute;bottom:-140px;width:44px;height:56px;border-radius:50%;z-index:3;opacity:.95}
+  .balloon::after{content:"";position:absolute;bottom:-40px;left:50%;width:1px;height:40px;background:rgba(122,74,43,.35)}
+  .balloon::before{content:"";position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:inherit}
+  .b1{left:12%;background:#ff8fab;color:#ff8fab;animation:rise 7s ease-in infinite .2s}
+  .b2{left:30%;background:#ffd45e;color:#ffd45e;animation:rise 8s ease-in infinite 1.4s}
+  .b3{left:60%;background:#8fd3ff;color:#8fd3ff;animation:rise 7.5s ease-in infinite .8s}
+  .b4{left:78%;background:#c8a2ff;color:#c8a2ff;animation:rise 8.5s ease-in infinite 2s}
+  .b5{left:45%;background:#a8e6a0;color:#a8e6a0;animation:rise 9s ease-in infinite 2.6s}
+  @keyframes rise{0%{bottom:-140px;opacity:0}10%{opacity:.95}100%{bottom:110svh;opacity:0}}
+
+  /* confetti */
+  .confetti{position:absolute;top:-20px;width:9px;height:14px;opacity:0;z-index:2;border-radius:2px}
+  @keyframes fall{0%{opacity:0;transform:translateY(-20px) rotate(0)}10%{opacity:1}100%{opacity:.9;transform:translateY(105svh) rotate(720deg)}}
+
+  .replay{
+    position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:20;
+    background:rgba(255,255,255,.85);color:var(--brown);border:none;
+    border-radius:999px;padding:9px 20px;font-family:'Baloo 2',cursive;font-weight:700;
+    font-size:.85rem;cursor:pointer;box-shadow:0 4px 12px rgba(122,74,43,.2);
+    opacity:0;animation:fadeIn 1s ease 3s forwards;
+  }
+</style>
+</head>
+<body>
+  <div class="scene">
+    <div class="sun"></div>
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+
+    <div class="greet">
+      <div class="hi">З днем народження,<span class="name">Настю!</span></div>
+      <div class="msg">
+        Сьогодні цілий загін коргі прибіг тебе привітати 🐾
+        <span class="line2">Хай рік буде такий самий світлий, як їхні усмішки, з купою радості, тепла й коротеньких лапок щастя поруч. Ти найкраща! 🎂💛</span>
+      </div>
+    </div>
+
+    <div class="ground"></div>
+    <div class="pack" id="pack"></div>
+  </div>
+
+  <button class="replay" onclick="location.reload()">↺ ще раз</button>
+
+<script>
+  // ---- corgi SVG (reusable) ----
+  function corgiSVG(){
+    return `
+    <svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
+      <!-- tail -->
+      <g class="tail" style="transform-box:fill-box">
+        <ellipse cx="14" cy="70" rx="10" ry="7" fill="#e8a25c"/>
+        <ellipse cx="9" cy="70" rx="5" ry="5" fill="#fff4e6"/>
+      </g>
+      <!-- body -->
+      <ellipse cx="60" cy="95" rx="46" ry="30" fill="#e8a25c"/>
+      <path d="M20 95 Q60 118 100 95 Q100 120 60 122 Q20 120 20 95Z" fill="#fff4e6"/>
+      <!-- legs -->
+      <rect x="38" y="112" width="12" height="16" rx="6" fill="#e8a25c"/>
+      <rect x="70" y="112" width="12" height="16" rx="6" fill="#e8a25c"/>
+      <!-- head -->
+      <ellipse cx="60" cy="52" rx="34" ry="30" fill="#e8a25c"/>
+      <!-- cheeks/muzzle -->
+      <ellipse cx="60" cy="62" rx="20" ry="15" fill="#fff4e6"/>
+      <!-- ears -->
+      <path d="M32 30 L26 2 L50 24 Z" fill="#e8a25c"/>
+      <path d="M88 30 L94 2 L70 24 Z" fill="#e8a25c"/>
+      <path d="M34 26 L31 10 L45 24 Z" fill="#d4863f"/>
+      <path d="M86 26 L89 10 L75 24 Z" fill="#d4863f"/>
+      <!-- eyes -->
+      <circle cx="48" cy="48" r="5.5" fill="#3a2a1a"/>
+      <circle cx="72" cy="48" r="5.5" fill="#3a2a1a"/>
+      <circle cx="49.5" cy="46.5" r="1.8" fill="#fff"/>
+      <circle cx="73.5" cy="46.5" r="1.8" fill="#fff"/>
+      <!-- blush -->
+      <ellipse cx="40" cy="60" rx="6" ry="4" fill="#ffb3c6" opacity=".7"/>
+      <ellipse cx="80" cy="60" rx="6" ry="4" fill="#ffb3c6" opacity=".7"/>
+      <!-- nose + mouth -->
+      <ellipse cx="60" cy="58" rx="5" ry="3.5" fill="#3a2a1a"/>
+      <path d="M60 61 Q60 68 53 68 M60 61 Q60 68 67 68" stroke="#3a2a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- tongue -->
+      <ellipse cx="60" cy="70" rx="5" ry="7" fill="#ff8fab"/>
+    </svg>`;
+  }
+
+  const barks = ["Гав! 🎉","Вітаємо! 🎈","З ДН! 🐶","Гав-гав! 💛","Ура! 🎂"];
+  const bobClasses = ["bob","bob2","bob3","bob","bob2"];
+  const peekDelays = [1.7,1.95,2.2,2.0,2.35]; // seconds, staggered
+  const pack = document.getElementById('pack');
+
+  for(let i=1;i<=5;i++){
+    const wrap = document.createElement('div');
+    wrap.className = 'korgi k'+i+' '+bobClasses[i-1];
+    wrap.style.animationDelay = peekDelays[i-1]+'s';
+    // inner wrapper carries the bob animation + svg
+    const inner = document.createElement('div');
+    inner.className = 'inner';
+    inner.innerHTML = corgiSVG();
+    // bark bubble
+    const bark = document.createElement('div');
+    bark.className = 'bark';
+    bark.textContent = barks[i-1];
+    bark.style.left = '38%';
+    bark.style.top = '-20px';
+    inner.appendChild(bark);
+    wrap.appendChild(inner);
+    pack.appendChild(wrap);
+    // start barking after this corgi has peeked
+    setTimeout(()=>bark.classList.add('go'), (peekDelays[i-1]+0.9)*1000 + 200);
+  }
+
+  // ---- balloons ----
+  const scene = document.querySelector('.scene');
+  ['b1','b2','b3','b4','b5'].forEach(c=>{
+    const b=document.createElement('div');
+    b.className='balloon '+c;
+    scene.appendChild(b);
+  });
+
+  // ---- confetti burst on load ----
+  const colors=['#ff8fab','#ffd45e','#8fd3ff','#c8a2ff','#a8e6a0','#ffb3c6'];
+  function confetti(){
+    for(let i=0;i<60;i++){
+      const c=document.createElement('div');
+      c.className='confetti';
+      c.style.left=Math.random()*100+'%';
+      c.style.background=colors[Math.floor(Math.random()*colors.length)];
+      c.style.animation='fall '+(2.5+Math.random()*2).toFixed(2)+'s ease-in '+(Math.random()*1.5).toFixed(2)+'s forwards';
+      scene.appendChild(c);
+      setTimeout(()=>c.remove(),6000);
+    }
+  }
+  setTimeout(confetti, 800);
+  setTimeout(confetti, 2600);
+</script>
+</body>
+</html>
